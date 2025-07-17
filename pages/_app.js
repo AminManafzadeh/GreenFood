@@ -1,10 +1,11 @@
+import Layout from "../components/layout/Layout";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div className="container mx-auto max-w-screen-xl">
+    <Layout>
       <Component {...pageProps} />
-    </div>
+    </Layout>
   );
 }
 
