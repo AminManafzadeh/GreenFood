@@ -10,6 +10,9 @@ module.exports = {
       colors: {
         green: "#53c60b",
         grey: "#808080",
+        red: "#ed4133",
+        recipeEven: "#bcff93",
+        recipeOdd: "#e8ffdb",
       },
       boxShadow: {
         "green-shadow":
