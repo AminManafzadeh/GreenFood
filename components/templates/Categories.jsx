@@ -5,21 +5,20 @@ import Image from "next/image";
 
 function Categories({ data }) {
   const router = useRouter();
-  const [query, setQuery] = useState({ difficoulty: "", time: "" });
+  const [query, setQuery] = useState({ difficulty: "", time: "" });
 
   useEffect(() => {
-    const { difficoulty, time } = router.query;
-    if (query.difficoulty !== difficoulty || query.time !== time) {
-      setQuery({ difficoulty, time });
+    const { difficulty, time } = router.query;
+    if (difficulty || time) {
+      setQuery({ difficulty: difficulty || "", time: time || "" });
     }
-  }, []);
+  }, [router.query]);
 
   const handleChange = (e) => {
     setQuery({ ...query, [e.target.name]: e.target.value });
   };
 
   const handlerSearch = () => {
-    console.log(query);
     router.push({
       pathname: "/categories",
       query,
@@ -33,14 +32,14 @@ function Categories({ data }) {
       </h2>
 
       <div>
-        <div>
+        <div className="max-[600px]:flex max-[600px]:flex-col">
           <select
             onChange={handleChange}
-            value={query.difficoulty}
-            name="difficoulty"
-            className="border-none w-[150px] h-[40px] rounded-[10px] mr-[10px] p-[10px] text-green shadow-green-shadow"
+            value={query.difficulty}
+            name="difficulty"
+            className="border-none w-[150px] h-[40px] rounded-[10px] mr-[10px] p-[10px] text-green shadow-green-shadow max-[600px]:w-full max-[600px]:mb-5 "
           >
-            <option value="">Difficoulty</option>
+            <option value="">Difficulty</option>
             <option value="Easy">Easy</option>
             <option value="Medium">Medium</option>
             <option value="Hard">Hard</option>
@@ -49,7 +48,7 @@ function Categories({ data }) {
             onChange={handleChange}
             value={query.time}
             name="time"
-            className="border-none w-[150px] h-[40px] rounded-[10px] mr-[10px] p-[10px] text-green shadow-green-shadow"
+            className="border-none w-[150px] h-[40px] rounded-[10px] mr-[10px] p-[10px] text-green shadow-green-shadow max-[600px]:w-full max-[600px]:mb-5"
           >
             <option value="">Cooking Time</option>
             <option value="more">More than 30 min</option>
@@ -63,13 +62,13 @@ function Categories({ data }) {
           </button>
         </div>
 
-        <div className="flex flex-wrap mt-[50px] justify-between">
+        <div className="flex flex-wrap mt-[50px] justify-between max-[900px]:justify-around">
           {!data.length ? (
             <Image
               width={400}
               height={300}
               src="/images/search.png"
-              alt="Categoriy"
+              alt="Category"
               className="m-auto object-cover"
             />
           ) : null}
