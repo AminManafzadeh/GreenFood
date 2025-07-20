@@ -12,11 +12,11 @@ function Menu({ data }) {
 export default Menu;
 
 export async function getStaticProps() {
-  const response = await fetch("http://localhost:4000/data");
+  const response = await fetch(`${process.env.BASE_URL}/data`);
   const data = await response.json();
 
   return {
     props: { data },
-    revalidate: 1 * 60 * 60,
+    revalidate: +process.env.REVALIDATE,
   };
 }

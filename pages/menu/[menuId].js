@@ -1,6 +1,13 @@
+import { useRouter } from "next/router";
 import DetailsPage from "../../components/templates/DetailsPage";
 
 function MenuDetailPage({ data }) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <h2>Loading Page...</h2>;
+  }
+
   return (
     <div>
       <DetailsPage data={data} />
@@ -11,7 +18,7 @@ function MenuDetailPage({ data }) {
 export default MenuDetailPage;
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:4000/data");
+  const res = await fetch(`${process.env.BASE_URL}/data`);
   const json = await res.json();
   const data = json.slice(0, 10);
   const paths = data?.map((food) => ({
@@ -20,13 +27,13 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: "blocking",
+    fallback: true,
   };
 }
 
 export async function getStaticProps(context) {
   const { params } = context;
-  const res = await fetch(`http://localhost:4000/data/${params.menuId}`);
+  const res = await fetch(`${process.env.BASE_URL}/data/${params.menuId}`);
 
   if (!res.ok) {
     return {
@@ -40,6 +47,6 @@ export async function getStaticProps(context) {
     props: {
       data,
     },
-    revalidate: 1 * 60 * 60,
+    revalidate: +process.env.REVALIDATE,
   };
 }
