@@ -13,7 +13,7 @@ export default CategoriesPage;
 
 export async function getServerSideProps(context) {
   const {
-    query: { difficoulty, time },
+    query: { difficulty, time },
   } = context;
 
   const response = await fetch(`${process.env.BASE_URL}/data`);
@@ -21,7 +21,7 @@ export async function getServerSideProps(context) {
 
   const filteredData = data.filter((item) => {
     const difficoultyResult = item.details.filter((detail) => {
-      return detail.Difficulty && detail.Difficulty === difficoulty;
+      return detail.Difficulty && detail.Difficulty === difficulty;
     });
 
     const timeResulte = item.details.filter((detail) => {
@@ -34,11 +34,11 @@ export async function getServerSideProps(context) {
       }
     });
 
-    if (time && difficoulty && timeResulte.length && difficoultyResult.length) {
+    if (time && difficulty && timeResulte.length && difficoultyResult.length) {
       return item;
-    } else if (!time && difficoulty && difficoultyResult.length) {
+    } else if (!time && difficulty && difficoultyResult.length) {
       return item;
-    } else if (time && !difficoulty && timeResulte.length) {
+    } else if (time && !difficulty && timeResulte.length) {
       return item;
     }
   });

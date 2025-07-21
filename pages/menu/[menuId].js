@@ -37,7 +37,7 @@ export async function getStaticProps(context) {
 
   if (!res.ok) {
     return {
-      notFound: true, // صفحه ۴۰۴ نشون بده
+      notFound: true,
     };
   }
 
